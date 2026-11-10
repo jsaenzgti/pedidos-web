@@ -1,0 +1,29 @@
+# Riesgos de Pedidos Legado
+
+Hallazgos del subagente `analista-legado`. Rutas relativas a `legado/`. Lo no confirmado está marcado «por verificar».
+
+| ID | Riesgo | Evidencia (archivo:línea) | Categoría | Prioridad |
+|---|---|---|---|---|
+| RS-01 | SQL armado con texto del usuario (RUT, código de producto, nombre, filtro de informe, usuario, observación). `EscapaComillas` existe pero no se usa; una comilla ya rompe el INSERT. | `src/UFrmPedidos.pas:99-102,151-152,259-262`; `src/UFrmClientes.pas:76-77`; `src/UFrmInformes.pas:69`; `src/UDMPrincipal.pas:85`; `src/UStock.pas:85-88`; `src/UUtilidades.pas:164` | Seguridad | Alta |
+| RS-02 | Clave de la base (`Distrib#2008`) y ruta fija `C:\PEDIDOS\DATOS` en el código | `src/UDMPrincipal.pas:41,59`; `src/UGlobales.pas:36`; `src/UDMPrincipal.dfm:12` | Seguridad | Alta |
+| RS-03 | Permisos por nombre de usuario sin contraseña: escribir ADMIN o JEFEVENTAS da nivel administrador. El borrado de productos solo oculta un botón (otras vías: por verificar). | `src/UFrmPrincipal.pas:46-50,95`; `src/UFrmClientes.pas:143`; `src/UFrmProductos.pas:44-45` | Seguridad | Alta |
+| RS-04 | Pedido sin transacción: un fallo tras el INSERT del encabezado deja pedidos incompletos o con total 0. | `src/UFrmPedidos.pas:255` (TODO), `:263,272,320,324` | Datos e integridad | Alta |
+| RS-05 | Folio e ID de cliente con `MAX()+1`: dos usuarios simultáneos pueden generar el mismo folio. | `src/UFrmPedidos.pas:249-251`; `src/UFrmClientes.pas:160-163` | Datos e integridad | Alta |
+| RS-06 | Stock: tabla de movimientos inexistente con error tragado, lectura y escritura sin bloqueo, pedido aceptado aunque no haya stock, stock negativo. | `src/UStock.pas:38-53,71,84-90`; `src/UFrmPedidos.pas:263,324`; `db/datos/PRODUCTOS.csv:10` | Datos e integridad | Alta |
+| RS-07 | Informe con IVA fijo 0,19 que ignora `TASA_IVA`; el neto se deriva dividiendo el total. | `src/UFrmInformes.pas:92-93`; `src/UFrmPrincipal.pas:62-64` | Datos e integridad | Alta |
+| RS-08 | Total en pantalla distinto del grabado (umbral `>` frente a `>=`, Navidad solo al grabar). La alerta solo aparece con `gModoPrueba`, que siempre es False. | `src/UFrmPedidos.pas:326-332`; `src/UGlobales.pas:34`; `src/UCalculoTotales.pas:77,79` | Datos e integridad | Alta |
+| RS-09 | Pedido mínimo fijo en 30.000 en lugar del parámetro (25.000). Cambiar el parámetro no tiene efecto. | `src/UFrmPedidos.pas:231`; `db/datos/PARAMETROS.csv:3` | Datos e integridad | Media |
+| RS-10 | Dinero como `Double` y `FloatToStr` dependiente de la configuración regional dentro del SQL; la base usa MONEY. | `src/UCalculoTotales.pas:12,14,19-26`; `src/UFrmPedidos.pas:51,199,271,320`; `db/esquema-dbisam.sql:8,21,35,51,64` | Datos e integridad | Media |
+| RS-11 | Fechas de 2 dígitos: 00-49 es 20xx y 50-99 es 19xx; el CSV a contabilidad pierde el siglo. | `src/UUtilidades.pas:96-113`; `src/UFrmInformes.pas:52-53,119`; `src/UFrmPedidos.pas:243` | Fechas | Media |
+| RS-12 | Fechas del informe sin validar: `StrToInt` y `EncodeDate` lanzan excepción sin `try/except`. | `src/UFrmInformes.pas:63-64`; `src/UUtilidades.pas:100-107` | Fechas | Media |
+| RS-13 | Corte de las 18:00 con reloj del PC, sin feriados y sin mover los fines de semana antes de las 18:00. | `src/UUtilidades.pas:124,133`; `src/UFrmPedidos.pas:240`; `src/UStock.pas:88` | Fechas | Media |
+| RS-14 | Bloqueo por deuda con `DaysBetween` sin signo y fecha nula tratada como 0. En los CSV, los clientes 3, 8, 19 y 24 quedarían bloqueados hoy (vencimiento 2025). | `src/UFrmPedidos.pas:111-112`; `db/esquema-dbisam.sql:22` | Fechas | Media |
+| RS-15 | Reglas duplicadas con copias distintas (umbrales, redondeo, flete, RUT invertido). El comentario «NO TOCAR sin hablar con contabilidad» agrava el riesgo. | `src/UCalculoTotales.pas:5,50,77,97`; `src/UUtilidades.pas:30,72-79`; `src/UFrmPedidos.pas:296,312`; `src/UFrmClientes.pas:192-199` | Mantenibilidad | Alta |
+| RS-16 | Nombres engañosos: `Proc2` (muestra totales) y `Calc3` (redondea). Se usan; no son código muerto. | `src/UFrmPedidos.pas:55,367`; `src/UCalculoTotales.pas:29,48` | Mantenibilidad | Baja |
+| RS-17 | Código muerto y variables sin uso (`FormateaRut`, `SoloNumeros`, `Rellena`, `NombreMes`, `gFleteBase`, `gUltimoFolio`, etc.) y parámetros sin lector (`PEDIDO_MINIMO`, `DESC_NAVIDAD`, `VERSION`, `EMPRESA`). | `src/UUtilidades.pas:82,142,154,164,169`; `src/UGlobales.pas:15,17,18,20,21,33-34`; `db/datos/PARAMETROS.csv:3,5-7` | Mantenibilidad | Media |
+| RS-18 | Excepción tragada: `except` vacío en `RegistrarMovimiento` oculta que `MOV_STOCK` no existe. | `src/UStock.pas:84-90` | Datos e integridad | Alta |
+| RS-19 | Comentarios que contradicen al código (400.000 frente a 500.000, «con deuda vencida no se vende» con 60 días de gracia, «solo admin puede borrar», «log simple»). | `src/UCalculoTotales.pas:4`; `src/UFrmPedidos.pas:110,326,334`; `src/UFrmProductos.pas:43,93-95` | Mantenibilidad | Media |
+| RS-20 | README desactualizado: Paradox/BDE frente a DBISAM y Crystal Reports que el código no usa (otros ejecutables: por verificar). | `README.md:5-7,12`; `src/UDMPrincipal.pas:6`; `src/UDMPrincipal.dfm:10` | Mantenibilidad | Media |
+| RS-21 | Datos que contradicen reglas: clientes inactivos con pedidos, producto con stock negativo, estado `A` sin definición, clientes con saldo vencido. Si ocurre en producción: por verificar. | `db/datos/PEDIDOS.csv:19,21,43`; `db/datos/CLIENTES.csv:4,9,20,25,28,31`; `db/datos/PRODUCTOS.csv:10` | Datos e integridad | Media |
+| RS-22 | CSV de informe sin escape de `;` ni codificación explícita, guardado en la carpeta de datos compartida. | `src/UFrmInformes.pas:111,118-125` | Datos e integridad | Baja |
+| RS-23 | Estado compartido: `qryGeneral`, `qryAux` y las variables globales las usan todas las pantallas, sin pruebas automáticas. | `src/UDMPrincipal.pas:16-17,92-98`; `src/UGlobales.pas:4,11-21` | Mantenibilidad | Media |
