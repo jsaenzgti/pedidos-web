@@ -7,25 +7,25 @@ public class ClientesServiceTests
     private readonly ClientesService _servicio = new();
 
     [Fact]
-    public void Proc2_ClienteInexistente_DevuelveTextoVacio()
+    public void ObtenerFichaCliente_ClienteInexistente_DevuelveTextoVacio()
     {
-        var ficha = _servicio.proc2("C-999");
+        var ficha = _servicio.ObtenerFichaCliente("C-999");
 
         Assert.Equal("", ficha);
     }
 
     [Fact]
-    public void Proc2_ClienteActivo_DevuelveLaFicha()
+    public void ObtenerFichaCliente_ClienteActivo_DevuelveLaFicha()
     {
-        var ficha = _servicio.proc2("C-001");
+        var ficha = _servicio.ObtenerFichaCliente("C-001");
 
         Assert.Equal("Ferretería El Clavo | 76123456-0 | Zona centro | Activo", ficha);
     }
 
     [Fact]
-    public void Proc2_RutConPuntosYKMinuscula_LoNormaliza()
+    public void ObtenerFichaCliente_RutConPuntosYKMinuscula_LoNormaliza()
     {
-        var ficha = _servicio.proc2("C-004");
+        var ficha = _servicio.ObtenerFichaCliente("C-004");
 
         Assert.Equal("Almacén La Esquina | 76990011-K | Zona centro | Activo", ficha);
     }
