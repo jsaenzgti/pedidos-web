@@ -71,10 +71,10 @@ Los 19 criterios de la spec, en su orden, con un test de Core cada uno (archivo 
 
 ## Riesgos y decisiones
 - Parsear strings en Core permite probar el formato de fecha sin HTTP; el costo es una firma con strings. Alternativa descartada: enlazar tipos en la Api (`DateOnly?`, `int?`), que dejaría los errores de formato sin control propio.
-- Proyecto de tests de Api y paquete NuGet: cambio de dependencias, requiere aprobación.
+- Proyecto de tests de Api y paquete NuGet: cambio de dependencias, aprobado.
 - `AGENTS.md` ya fue actualizado para reflejar el servicio de Core y el segundo proyecto de tests.
 
 ## Verificación
-- `dotnet test`: todo en verde, con los 19 criterios cubiertos en Core, los 4 tests de Api y los 33 tests actuales.
+- `dotnet test`: 60 tests en verde. En `Core.Tests` son 56: los 19 criterios de HU-01 (22 casos) y los 34 anteriores. En `Api.Tests` son 4.
 - `GET http://localhost:5080/api/pedidos?clienteId=C-001` → 200, `total` 5, ids 40, 32, 24, 16, 8.
 - `GET /api/pedidos` sin `clienteId` → 400 `ProblemDetails`.
