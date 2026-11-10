@@ -68,9 +68,10 @@ public class FolioFormatterTests
     [InlineData(0, "S")]
     [InlineData(0, "")]
     [InlineData(1000000, "ÑUÑO")]
-    public void FormatearFolio_NumeroYSucursalInvalidos_ValidaPrimeroElNumero(int numero, string sucursal)
+    [InlineData(0, null)]
+    public void FormatearFolio_NumeroYSucursalInvalidos_ValidaPrimeroElNumero(int numero, string? sucursal)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => FolioFormatter.FormatearFolio(numero, sucursal));
+        Assert.Throws<ArgumentOutOfRangeException>(() => FolioFormatter.FormatearFolio(numero, sucursal!));
     }
 
     // R4: relleno de ceros hasta 6 dígitos.
