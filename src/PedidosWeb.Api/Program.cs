@@ -33,7 +33,7 @@ app.MapGet("/api/pedidos", (
     if (!resultado.EsValido)
     {
         var errores = resultado.Errores.ToDictionary(error => error.Key, error => error.Value);
-        return Results.ValidationProblem(errores);
+        return Results.ValidationProblem(errores, title: "Uno o más errores de validación.");
     }
 
     return Results.Ok(resultado.Pagina);
@@ -41,5 +41,5 @@ app.MapGet("/api/pedidos", (
 
 app.Run();
 
-// Permite crear tests de integración con WebApplicationFactory<Program> más adelante.
+// Permite crear tests de integración con WebApplicationFactory<Program> (ver tests/PedidosWeb.Api.Tests).
 public partial class Program { }

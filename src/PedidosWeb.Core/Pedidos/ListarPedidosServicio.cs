@@ -31,6 +31,10 @@ public sealed class ListarPedidosServicio
     }
 
     /// <summary>Aplica el filtro, el orden (Fecha, luego Id) y la paginación.</summary>
+    // TODO(U5): hoy se cargan todos los pedidos y se filtra en memoria (son 45 de ejemplo).
+    // Con PostgreSQL el filtro, el orden y la paginación deben ejecutarse en la base:
+    // habrá que agregar a IPedidoRepositorio un método como Buscar(FiltroPedidos).
+    // Los tests de este servicio siguen valiendo, porque prueban el resultado y no el repositorio.
     private ResultadoPaginado<Pedido> Consultar(FiltroPedidos filtro)
     {
         IEnumerable<Pedido> consulta = _repositorio.ObtenerTodos()

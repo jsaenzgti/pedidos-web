@@ -4,27 +4,50 @@ namespace PedidosWeb.Core.Pedidos;
 
 /// <summary>
 /// Filtro de listado ya validado y con tipos reales (HU-01).
-/// Se crea con <see cref="Crear"/> a partir de los textos de la query string.
+/// El constructor es privado: la única forma de obtener uno es <see cref="Crear"/>,
+/// que valida los textos de la query string. Así un filtro existente siempre es válido.
 /// </summary>
-/// <param name="ClienteId">Código del cliente, sin espacios al inicio ni al final.</param>
-/// <param name="Estado">Estado a filtrar, o null para todos.</param>
-/// <param name="Desde">Fecha mínima inclusiva, o null.</param>
-/// <param name="Hasta">Fecha máxima inclusiva, o null.</param>
-/// <param name="Pagina">Número de página, desde 1.</param>
-/// <param name="TamanoPagina">Pedidos por página, de 1 a 50.</param>
-public sealed record FiltroPedidos(
-    string ClienteId,
-    string? Estado,
-    DateOnly? Desde,
-    DateOnly? Hasta,
-    int Pagina,
-    int TamanoPagina)
+public sealed record FiltroPedidos
 {
     public const int PaginaPorDefecto = 1;
     public const int TamanoPaginaPorDefecto = 20;
     public const int TamanoPaginaMaximo = 50;
 
     private const string FormatoFecha = "yyyy-MM-dd";
+
+    /// <summary>Código del cliente, sin espacios al inicio ni al final.</summary>
+    public string ClienteId { get; }
+
+    /// <summary>Estado a filtrar (en su forma canónica), o null para todos.</summary>
+    public string? Estado { get; }
+
+    /// <summary>Fecha mínima inclusiva, o null.</summary>
+    public DateOnly? Desde { get; }
+
+    /// <summary>Fecha máxima inclusiva, o null.</summary>
+    public DateOnly? Hasta { get; }
+
+    /// <summary>Número de página, desde 1.</summary>
+    public int Pagina { get; }
+
+    /// <summary>Pedidos por página, de 1 a 50.</summary>
+    public int TamanoPagina { get; }
+
+    private FiltroPedidos(
+        string clienteId,
+        string? estado,
+        DateOnly? desde,
+        DateOnly? hasta,
+        int pagina,
+        int tamanoPagina)
+    {
+        ClienteId = clienteId;
+        Estado = estado;
+        Desde = desde;
+        Hasta = hasta;
+        Pagina = pagina;
+        TamanoPagina = tamanoPagina;
+    }
 
     /// <summary>
     /// Valida los textos recibidos y devuelve el filtro o los errores por campo.
@@ -74,8 +97,11 @@ public sealed record FiltroPedidos(
         }
 
         // pagina y tamanoPagina: enteros, con valores por defecto.
-        int numeroPagina = LeerEntero(pagina, "pagina", PaginaPorDefecto, 1, int.MaxValue, errores);
-        int tamano = LeerEntero(tamanoPagina, "tamanoPagina", TamanoPaginaPorDefecto, 1, TamanoPaginaMaximo, errores);
+        int numeroPagina = LeerEntero(
+            pagina, "pagina", PaginaPorDefecto, 1, int.MaxValue, "Debe ser mayor o igual a 1.", errores);
+        int tamano = LeerEntero(
+            tamanoPagina, "tamanoPagina", TamanoPaginaPorDefecto, 1, TamanoPaginaMaximo,
+            "Debe estar entre 1 y " + TamanoPaginaMaximo + ".", errores);
 
         if (errores.Count > 0)
         {
@@ -115,6 +141,7 @@ public sealed record FiltroPedidos(
         int valorPorDefecto,
         int minimo,
         int maximo,
+        string mensajeFueraDeRango,
         Dictionary<string, string[]> errores)
     {
         if (texto is null)
@@ -132,10 +159,7 @@ public sealed record FiltroPedidos(
 
         if (valor < minimo || valor > maximo)
         {
-            string rango = maximo == int.MaxValue
-                ? "Debe ser mayor o igual a " + minimo + "."
-                : "Debe estar entre " + minimo + " y " + maximo + ".";
-            errores[campo] = new[] { rango };
+            errores[campo] = new[] { mensajeFueraDeRango };
             return valorPorDefecto;
         }
 
