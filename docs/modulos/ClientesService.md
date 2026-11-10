@@ -9,7 +9,7 @@ Servicio de dominio que consulta clientes de la distribuidora sobre una lista en
 - La **ficha de texto** de un cliente para mostrar en pantalla.
 - La comprobación de si un cliente **existe y está activo**.
 
-Es código heredado: funciona y está cubierto por 4 tests, pero tiene nombres poco claros (`proc3`, campo `_l`).
+Es código heredado: funciona y está cubierto por 4 tests, pero el campo interno `_l` tiene un nombre poco claro.
 
 ## API pública
 
@@ -41,7 +41,7 @@ Busca el cliente por `Id` (comparación exacta, distingue mayúsculas) y devuelv
 
 - **Estado**: `Activo` si `Activo` es `true`; si no, `Inactivo`.
 
-### `bool proc3(string id)`
+### `bool ExisteYEstaActivo(string id)`
 
 Devuelve `true` si existe un cliente con ese `Id` y está activo; `false` si no existe o está inactivo.
 
@@ -65,9 +65,9 @@ servicio.ObtenerFichaCliente("C-004");   // RUT original: "76.990.011-k"
 servicio.ObtenerFichaCliente("C-999");
 // ""
 
-servicio.proc3("C-001"); // true  (activo)
-servicio.proc3("C-007"); // false (inactivo)
-servicio.proc3("C-999"); // false (no existe)
+servicio.ExisteYEstaActivo("C-001"); // true  (activo)
+servicio.ExisteYEstaActivo("C-007"); // false (inactivo)
+servicio.ExisteYEstaActivo("C-999"); // false (no existe)
 ```
 
 ## Diagrama
@@ -81,7 +81,7 @@ flowchart TD
     E --> F[Asigna estado Activo / Inactivo]
     F --> G["Devuelve Nombre | Rut | Zona | Estado"]
 
-    H[proc3 id] --> I{Existe cliente con ese Id?}
+    H[ExisteYEstaActivo id] --> I{Existe cliente con ese Id?}
     I -- No --> J[false]
     I -- Sí --> K{Activo?}
     K -- Sí --> L[true]
@@ -90,4 +90,4 @@ flowchart TD
 
 ## Tests
 
-`tests/PedidosWeb.Core.Tests/Clientes/ClientesServiceTests.cs`: cliente inexistente, ficha de cliente activo, normalización del RUT (puntos y `k` minúscula) y `proc3` para activo, inactivo e inexistente.
+`tests/PedidosWeb.Core.Tests/Clientes/ClientesServiceTests.cs`: cliente inexistente, ficha de cliente activo, normalización del RUT (puntos y `k` minúscula) y `ExisteYEstaActivo` para activo, inactivo e inexistente.

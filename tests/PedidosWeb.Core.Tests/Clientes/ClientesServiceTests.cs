@@ -31,10 +31,10 @@ public class ClientesServiceTests
     }
 
     [Fact]
-    public void Proc3_ClienteActivoEInactivo_DevuelveSiEstaActivo()
+    public void ExisteYEstaActivo_ClienteActivoEInactivo_DevuelveSiEstaActivo()
     {
-        Assert.True(_servicio.proc3("C-001"));
-        Assert.False(_servicio.proc3("C-007"));
-        Assert.False(_servicio.proc3("C-999"));
+        Assert.True(_servicio.ExisteYEstaActivo("C-001"));
+        Assert.False(_servicio.ExisteYEstaActivo("C-007"));
+        Assert.False(_servicio.ExisteYEstaActivo("C-999"));
     }
 }
