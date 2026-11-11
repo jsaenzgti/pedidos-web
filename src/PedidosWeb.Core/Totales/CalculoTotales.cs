@@ -45,11 +45,11 @@ public static class CalculoTotales
         return resultado;
     }
 
-    // Igual que Calc3 del legado: Trunc(valor + 0.49). El .50 exacto baja.
-    // Defecto conocido (R05): se corrige en la etapa 3, en un commit aparte.
+    // Redondeo comercial al peso: el .50 exacto sube.
+    // Corrige R05 (el legado usaba Trunc(valor + 0.49) y el .50 bajaba).
     private static decimal RedondearPesos(decimal valor)
     {
-        return Math.Truncate(valor + 0.49m);
+        return Math.Round(valor, 0, MidpointRounding.AwayFromZero);
     }
 
     private static decimal CalcularSubtotal(IReadOnlyList<LineaCalculo> lineas)
