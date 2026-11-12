@@ -39,7 +39,7 @@ public static class CalculoTotales
             resultado.Flete = CalcularFlete(fleteBase, region);
         }
 
-        resultado.Iva = RedondearPesos((resultado.Neto + resultado.Flete) * 0.19m);
+        resultado.Iva = RedondearPesos((resultado.Neto + resultado.Flete) * tasaIva);
         resultado.Total = resultado.Neto + resultado.Flete + resultado.Iva;
 
         return resultado;
