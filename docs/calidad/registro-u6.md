@@ -19,15 +19,16 @@ Borra estos comentarios al terminar.
 
 ## Etapa 2 · Pipeline seguro
 
-- **`ci.yml`:** <enlace al primer run en verde>
-- **`claude.yml` en `main`:** <sí / no>
-- **Revisé:** permisos mínimos ☐ · timeout ☐ · versiones fijas ☐ · token solo como secreto ☐
+- **`ci.yml`:** https://github.com/jsaenzgti/pedidos-web/actions/runs/43242591350 (verde)
+- **`claude.yml` en `main`:** sí (aún sin probar; se prueba en la Etapa 3)
+- **Revisé:** permisos mínimos ☑ · timeout ☑ · versiones fijas ☑ · token solo como secreto ☑
 
 ## Etapa 3 · La falla
 
-- **PR:** <enlace>
-- **Qué rompí (a mano):** <archivo y cambio>
-- **Diagnóstico de `@claude` (en una línea):** <resumen>
-- **Mi decisión:** Aceptar ☐ · Ajustar ☐ · Rechazar ☐
-- **Por qué:** <tu razón>
-- **Corrección y merge:** <commit de la corrección; CI en verde ☐; merge ☐>
+- **PR:** https://github.com/jsaenzgti/pedidos-web/pull/1
+- **Qué rompí (a mano):** `src/PedidosWeb.Core/Totales/CalculoTotales.cs`: el IVA pasó de `* tasaIva` a `* 0.19m` (commit `b48476e`). Falló `Calcular_TasaIvaCero_IvaCeroYTotalSinIva`.
+- **Diagnóstico de `@claude` (en una línea):** el paso `dotnet test` falla porque el IVA quedó fijo en 19 % y `tasaIva` ya no se usa; propone revertir `b48476e`.
+- **Mi decisión:** Aceptar ☑ · Ajustar ☐ · Rechazar ☐
+- **Por qué:** la causa y la solución eran correctas. Su única suposición errónea (que fallarían casos del golden master) la marcó como no confirmada: los 60 casos usan 0,19 y solo falló 1 test.
+- **Corrección y merge:** commit `8fb093b` «fix: restaura tasaIva en el cálculo del IVA»; CI en verde ☑ (run del PR sobre `8fb093b`); merge ☑ (PR #1, 2026-11-12).
+- **Hallazgos del pipeline:** `claude-code-action@v1.0.0` usaba un modelo retirado (404); se subió a `v1.0.271` y se fijó `--model claude-sonnet-5-5`. Con `--max-turns 5` `@claude` se quedaba sin turnos; se subió a 10 (se aparta de los 5 de la guía).
