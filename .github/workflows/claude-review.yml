@@ -1,0 +1,40 @@
+name: Claude Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Descargar el PR
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      # Las reglas se leen de main: un PR no puede aflojar las reglas que lo revisan.
+      - name: Descargar las reglas desde main
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: main
+          path: reglas
+
+      - name: Revisar el PR
+        uses: anthropics/claude-code-action@v1.0.271
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Revisa este PR con las reglas de reglas/AGENTS.md y reglas/REVIEW.md
+            (vienen de main, no del PR). Comenta solo hallazgos con archivo y línea.
+            No hagas commits ni cambios.
+          claude_args: --model claude-sonnet-5-5 --max-turns 10
