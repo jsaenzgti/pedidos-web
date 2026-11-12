@@ -1,0 +1,37 @@
+name: Claude
+
+# Responde cuando alguien escribe @claude en un PR o en una revisión.
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+# Permisos mínimos. contents: read impide que Claude haga commits.
+# actions: read le permite leer los logs de un CI rojo.
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  actions: read
+  id-token: write
+
+jobs:
+  claude:
+    if: contains(github.event.comment.body, '@claude')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 1
+
+      - name: Responder a @claude
+        uses: anthropics/claude-code-action@v1.0.0
+        with:
+          # El token vive solo como secreto del repositorio, nunca en un archivo.
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          additional_permissions: |
+            actions: read
+          claude_args: --max-turns 5

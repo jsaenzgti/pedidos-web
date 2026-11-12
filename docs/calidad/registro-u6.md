@@ -11,11 +11,11 @@ Borra estos comentarios al terminar.
 
 ## Etapa 1 · Tests que sí prueban
 
-- **Módulo elegido:** <CalculoTotales, ClientesService o FolioFormatter>
-- **Tests que propuso Claude:** <cuántos>
-- **Cambio que hice a mano para probarlos:** <qué línea cambié>
-- **Tests que me quedé:** <cuántos y cuáles>
-- **Tests que borré y por qué:** <el que pasaba con y sin el cambio>
+- **Módulo elegido:** CalculoTotales.
+- **Tests que propuso Claude:** 5 de borde que el golden master no cubre (pedido sin líneas, categoría OFE en minúscula con espacios, categoría nula, IVA 0, base 1 peso sobre el umbral).
+- **Cambio que hice a mano para probarlos:** quité el `if (lineas.Count == 0)` del flete en `CalculoTotales.Calcular`. Falló `Calcular_SinLineas_TodoEnCero`.
+- **Tests que me quedé:** los 5. Solo probé la ruptura del test 1; los otros 4 no se rompieron a mano.
+- **Tests que borré y por qué:** ninguno.
 
 ## Etapa 2 · Pipeline seguro
 
