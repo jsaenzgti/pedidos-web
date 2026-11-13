@@ -1,46 +1,50 @@
 # Plan integrado de adopción de IA · Pedidos Web
 
-> Plantilla de la Unidad 10. Complétala con Claude Code en la etapa 3, usando solo cifras de `docs/roi/modelo-roi.md`.
-> Luego la conviertes en `docs/roi/plan-integrado.pdf` con tu Skill `pdf-con-estilo` (U9), sin tocar su CSS.
+**Para:** Gerencia general · **Autor:** Julio Saenz · **Fecha:** 13-nov-2026
 
-**Para:** Gerencia general · **Autor:** <tu nombre> · **Fecha:** <fecha>
+> **Recomendación:** extender la forma de trabajo con IA a los 25 desarrolladores, con revisión de indicadores a los 3 meses. **ROI a 6 meses: entre −32,7 % y −2,2 %.** Decisión antes del 13-dic-2026.
 
-## Página 1 · Informe ejecutivo
+*Preparado con apoyo de IA; cifras verificadas por Julio Saenz.*
+
+## Informe ejecutivo (1 página)
 
 ### 1. Problema
-<Qué decisión hay que tomar y por qué ahora. 2 líneas.>
+Hay que decidir si la forma de trabajar con IA de Pedidos Web se extiende a los 25 desarrolladores de la empresa (25 asientos de Claude). Decidirlo ahora evita que los otros equipos usen la IA cada uno por su cuenta y sin medir.
 
 ### 2. Qué se hizo
-<El piloto en dos líneas, sin jerga técnica.>
+Durante 12 semanas, un equipo de 6 desarrolladores trabajó 6 semanas como siempre y 6 con IA, midiendo entregas, fallas, defectos y retrabajo. Los datos son ficticios y la muestra es pequeña: este es un ejercicio de método.
 
 ### 3. Resultados
-<2 o 3 datos medidos y el ROI como rango: entre [__] % y [__] %. Di qué lo mueve.>
+- El tiempo de entrega bajó de 6,58 a 5,17 días en promedio (4,38 en las semanas 9 a 12).
+- Los defectos que llegan a producción bajaron de 2,0 a 1,5 por semana (1,0 en las semanas 9 a 12).
+- Las dos primeras semanas con IA empeoraron (3 de 4 entregas con falla): el equipo estaba aprendiendo.
+- **ROI a 6 meses, entre −32,7 % y −2,2 %:** negativo en ambos escenarios. Lo mueve el costo de 25 asientos y su capacitación (7.850 USD) frente a un beneficio medido solo en 6 personas (entre 5.280 y 7.680 USD). Si el ahorro fuera la mitad, el ROI sería −66,4 %.
 
 ### 4. Recomendación
-<Una sola frase que se pueda aprobar o rechazar.>
+Extender la forma de trabajo a 25 asientos, con la condición de revisar los indicadores a los 3 meses y detener la ampliación si no se cumplen.
 
 ### 5. Próximo paso
-<Quién, qué y para cuándo.>
+Julio Saenz presenta la solicitud y la gerencia decide antes del 13-dic-2026.
 
-*Preparado con apoyo de IA; cifras verificadas por <nombre>.*
+*Preparado con apoyo de IA; cifras verificadas por Julio Saenz.*
 
----
+<div style="page-break-before: always"></div>
 
 ## Anexo
 
-No repite tus entregables: los cita.
+No repite los entregables del curso: los cita.
 
 ### Roadmap
-<3, 6 y 12 meses.> · Respaldo: `docs/adopcion/plan-evolucion.md` (U9)
+Mes 1: instalar el paquete de reglas y herramientas del piloto (el «playbook») en los otros equipos. Mes 3: cumplir los objetivos del trimestre. Mes 6: Facturación, Reportes y Bodega en nivel 3. Mes 12: todos los equipos en nivel 4. · Respaldo: `docs/adopcion/plan-evolucion.md` (U9)
 
 ### Indicadores
-<Qué se mide y con qué meta.> · Respaldo: `docs/calidad/registro-u6.md` (U6) · `docs/checklist-revision.md` (U7)
+Se mide cada semana el uso, la tasa de aceptación de lo que sugiere la IA y la proporción de cambios de código hechos con Claude Code. Metas del trimestre: tasa de aceptación de 0,40 o más en Bodega, 3 o más usuarios activos por semana en Facturación y Reportes, y 80 % de cambios con Claude Code sostenido en Pedidos Web. La calidad se cuida con pruebas automáticas (149 en verde al 13-nov-2026) y con una lista de revisión de cambios. · Respaldo: `docs/calidad/registro-u6.md` (U6) · `docs/checklist-revision.md` (U7)
 
 ### Gobernanza
-<Qué controles se llevan a los otros equipos.> · Respaldo: `docs/gobernanza/politica-ia.md` (U8)
+Controles probados: bloqueo de lectura de archivos `.env` y `.pem`, bloqueo de edición del sistema legado, un guardián que revisa cada comando y un chequeo de pruebas tras cada edición. Cada cambio de código declara el uso de IA. No funcionaron en el editor las reglas que preguntan antes de actuar (descargas y edición de los resultados de referencia del cálculo): ese riesgo queda abierto. · Respaldo: `docs/gobernanza/politica-ia.md` (U8)
 
 ### ROI
-<Supuestos clave, escenarios, sensibilidad y punto de equilibrio.> · Respaldo: `docs/roi/modelo-roi.md` · `docs/migracion/defectos-corregidos.md` (U5)
+Costo de 7.850 USD a 6 meses: 25 asientos a 25 USD al mes (precio oficial con facturación mensual, consultado el 13-nov-2026; con facturación anual serían 20 USD), capacitación de 8 horas por persona y la curva de aprendizaje. El beneficio cuenta solo las 6 personas del piloto, a 20 USD la hora y 100 USD por defecto en producción (ambos estimados). Escenarios: conservador −32,7 % y optimista −2,2 %. Sensibilidad: con el ahorro a la mitad, −66,4 %. Las horas ahorradas las reporta el propio equipo. · Respaldo: `docs/roi/modelo-roi.md` · `docs/migracion/defectos-corregidos.md` (U5)
 
 ### Evolución
-<Nivel de madurez actual → meta.> · Respaldo: `docs/adopcion/plan-evolucion.md` (U9)
+Hoy: Pedidos Web en nivel 4, Bodega y Reportes en nivel 2, Facturación en nivel 1. Meta a 12 meses: los cuatro equipos en nivel 4. · Respaldo: `docs/adopcion/plan-evolucion.md` (U9)

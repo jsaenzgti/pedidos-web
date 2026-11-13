@@ -40,7 +40,7 @@ Tipos: **oficial** (publicado, con fecha) · **medido** (dato del piloto) · **e
 |---|---|---|---|
 | Horizonte | 6 meses = 26 semanas (24 con beneficio, tras 2 de curva) | estimado | Decisión de Julio Saenz; coincide con el hito de 6 meses de `docs/adopcion/plan-evolucion.md` |
 | Número de asientos | 25 | estimado | Dato de Julio Saenz |
-| Asiento | 25 USD por asiento al mes | oficial | claude.com/pricing, Team Standard (facturación anual), consultado el 13-nov-2026 |
+| Asiento | 25 USD por asiento al mes | oficial | claude.com/pricing, Team Standard con facturación mensual (con facturación anual son 20 USD), consultado el 13-nov-2026 |
 | Capacitación | 8 h por dev × 25 devs, a valor hora; sin otro costo | estimado | Dato de Julio Saenz |
 | Curva de adopción | 2 semanas sin beneficio y 5 h de retrabajo extra: (15 − 12) + (14 − 12) h | medido | `datos-piloto.csv`, semanas 7-8 frente a la media de 12 h de las semanas 1-6 |
 | Valor hora | 20 USD | estimado | Dato de Julio Saenz, sin fuente publicada |
