@@ -15,13 +15,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Descargar el PR
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
 
       # Las reglas se leen de main: un PR no puede aflojar las reglas que lo revisan.
       - name: Descargar las reglas desde main
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: main
           path: reglas

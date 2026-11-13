@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Descargar el código
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v7.0.1
 
       - name: Instalar .NET SDK
         uses: actions/setup-dotnet@v4.3.1
