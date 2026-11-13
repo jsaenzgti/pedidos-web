@@ -16,3 +16,5 @@ Thumbs.db
 # Secretos: nunca al repo
 .env
 *.pem
+__pycache__/
+*.pyc
