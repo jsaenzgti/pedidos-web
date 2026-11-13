@@ -60,4 +60,13 @@ public class PedidosPorFechaTests
         Assert.Contains("desde", error.Message);
         Assert.Contains("hasta", error.Message);
     }
+
+    [Fact]
+    public void EntreFechas_PedidosNulo_LanzaArgumentNullExceptionConElNombreDelParametro()
+    {
+        ArgumentNullException error = Assert.Throws<ArgumentNullException>(
+            () => PedidosPorFecha.EntreFechas(null!, Desde, Hasta));
+
+        Assert.Equal("pedidos", error.ParamName);
+    }
 }

@@ -10,6 +10,8 @@ public static class PedidosPorFecha
         DateOnly desde,
         DateOnly hasta)
     {
+        ArgumentNullException.ThrowIfNull(pedidos);
+
         if (desde > hasta)
         {
             throw new ArgumentException("La fecha desde no puede ser posterior a la fecha hasta.");
