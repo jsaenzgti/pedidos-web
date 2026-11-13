@@ -32,11 +32,11 @@ Modelo de madurez del curso: 1 Uso a escondidas · 2 Uso individual · 3 Equipo 
 
 ## 4. El playbook
 
-`pedidos-playbook` (versión 1.0.0) es un plugin de Claude Code que empaqueta la forma de trabajar de Pedidos Web. Se publica desde el repo `jsaenzgti/pedidos-web`, que actúa como marketplace con el nombre `pedidos-jsaenzgti`.
+`pedidos-playbook` (versión 1.1.0) es un plugin de Claude Code que empaqueta la forma de trabajar de Pedidos Web. Se publica desde el repo `jsaenzgti/pedidos-web`, que actúa como marketplace con el nombre `pedidos-jsaenzgti`.
 
 | Pieza | Para qué sirve |
 |---|---|
-| Subagente `revisor` | Revisa en local los cambios de la rama contra `AGENTS.md` y `REVIEW.md` antes de abrir un PR. Solo lee, nunca modifica |
+| Subagente `revisor` | Revisa en local los cambios de la rama contra `AGENTS.md` y `REVIEW.md` antes de abrir un PR y marca como Importante cualquier secreto o archivo `.env`/`.pem` que se agregue. Solo lee, nunca modifica |
 | Skill `documentar-modulo` | Genera la documentación de un módulo o servicio en Markdown dentro de `docs/modulos` |
 | Skill `planificador-proyectos-web` | Planifica y documenta un proyecto web con un proceso proporcional a su complejidad |
 | Guardián (hook) | Bloquea toda acción que nombre un archivo `.env` o `.pem`, según la política de IA. Necesita `bash` (Git Bash en Windows) |
