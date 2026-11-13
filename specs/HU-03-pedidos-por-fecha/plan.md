@@ -23,3 +23,4 @@ Un filtro pequeño y puro en Core. No toca la API, `IPedidoRepositorio` ni los p
 | CA-02 · fecha igual a `hasta` aparece | `EntreFechas_PedidoConFechaHasta_Aparece` |
 | CA-03 · fuera del rango no aparece | `EntreFechas_PedidoFueraDelRango_NoAparece` |
 | CA-04 · `desde` mayor que `hasta` lanza `ArgumentException` | `EntreFechas_DesdeMayorQueHasta_LanzaArgumentException` |
+| CA-05 · `pedidos` nulo lanza `ArgumentNullException` con el nombre `pedidos` | `EntreFechas_PedidosNulo_LanzaArgumentNullExceptionConElNombreDelParametro` |
