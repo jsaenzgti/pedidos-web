@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # Paquetes NuGet de la solución (src/ y tests/).
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Acciones de GitHub usadas en .github/workflows/.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
