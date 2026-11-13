@@ -1,0 +1,6 @@
+{
+  "name": "pedidos-playbook",
+  "version": "1.0.0",
+  "description": "Forma de trabajar de Pedidos Web: revisor, Skills, guardián, plantilla de AGENTS.md y MCP claude-academy",
+  "author": { "name": "Julio Saenz" }
+}

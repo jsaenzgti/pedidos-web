@@ -1,0 +1,12 @@
+{
+  "name": "pedidos-jsaenzgti",
+  "owner": { "name": "Julio Saenz" },
+  "description": "Marketplace de Pedidos Web: instala la forma de trabajar con IA del equipo",
+  "plugins": [
+    {
+      "name": "pedidos-playbook",
+      "source": "./plugins/pedidos-playbook",
+      "description": "Forma de trabajar de Pedidos Web: revisor, Skills, guardián, plantilla de AGENTS.md y MCP claude-academy"
+    }
+  ]
+}
