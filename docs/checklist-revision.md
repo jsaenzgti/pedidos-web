@@ -1,26 +1,24 @@
 # Checklist de revisión · pedidos-web
 
-<!--
-Lo completas tú en la etapa 3 del taller de la Unidad 7, con lo que aprendiste al revisar
-y al ser revisado. Frases cortas. Borra estos comentarios al terminar.
--->
-
 ## Antes de pedir revisión
-- [ ] <qué compruebas tú antes de abrir un PR>
-- [ ] <…>
+- [ ] `dotnet test` en verde y el subagente `revisor` corrido sin hallazgos Importantes.
+- [ ] Spec, plan y tests están alineados: cada criterio tiene su test.
+- [ ] La descripción del PR tiene Qué cambia, Por qué (mío) y Cómo probarlo, sin [COMPLETAR].
 
 ## Al revisar (persona)
-- [ ] <qué pregunta haces que la IA no puede responder>
-- [ ] <…>
+- [ ] ¿El cambio parte de un criterio de la spec? La IA no sabe si la spec está al día.
+- [ ] ¿Los documentos (spec, plan) quedaron en sincronía con el código?
+- [ ] ¿El porqué explica el motivo y no solo repite el qué?
 
 ## Con los hallazgos de la IA
 - [ ] Cada hallazgo tiene respuesta: acepto, discutir o descarto, con argumento.
-- [ ] <…>
+- [ ] Si la IA no comenta, confirmo en el log que sí revisó (turnos y permisos negados en 0).
 
 ## Merge
-- [ ] <qué tiene que estar en verde o resuelto>
+- [ ] CI en verde, ningún hallazgo sin responder y este checklist completo.
 
 ## Mi PR de HU-03
-- **PR:** <enlace>
-- **Hallazgo de la IA que más discutimos:** <cuál y qué decidimos>
-- **Mi hallazgo humano:** <qué encontraste que la IA no vio>
+- **PR:** https://github.com/jsaenzgti/pedidos-web/pull/7
+- **Hallazgo de la IA que más discutimos:** ninguno. Claude revisó el PR (4 turnos, 0 permisos negados) y no halló nada que reportar.
+- **Mi hallazgo humano:** ninguno. No encontré nada que la IA no hubiera visto.
+- **Nota:** el desajuste del plan (faltaba CA-05 en la tabla de trazabilidad) lo señaló Claude en la sesión; se corrigió en este PR.
