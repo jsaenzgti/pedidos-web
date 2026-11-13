@@ -83,7 +83,34 @@ El ROI en 6 meses va **entre −32,7 % y −2,2 %**: negativo en ambos escenario
 
 ## 6. Punto de equilibrio (Tu reto)
 
-<Escríbelo tú: qué despejas, el resultado y una línea para la gerencia.>
+**Pregunta:** ¿cuántas horas ahorradas por dev al mes dejan el ROI en 0?
+
+**Qué vale el ROI en el punto de equilibrio:** ROI = 0 significa (beneficio − costo) / costo = 0, o sea **beneficio = costo = 7.850 USD**.
+
+**Qué se despeja y qué queda fijo:**
+- Se despeja: las horas ahorradas (H).
+- Quedan fijos: costo (7.850 USD), valor hora (20 USD), defectos evitados del escenario conservador (0,5 por semana → 1.200 USD), 24 semanas con beneficio, que se toman como 6 meses de 4 semanas, y 25 devs.
+
+**Despeje paso a paso:**
+1. Beneficio = H × 20 USD + 1.200 USD = 7.850 USD
+2. H × 20 = 7.850 − 1.200 = 6.650 USD
+3. H = 6.650 / 20 = **332,5 horas** ahorradas en total en las 24 semanas (13,85 h por semana del conjunto)
+4. Por dev al mes: 332,5 h / 25 devs / 6 meses = **2,22 h por dev al mes** (unos 33 minutos por semana)
+
+**Comprobación:** 2,217 h × 25 devs × 6 meses × 20 USD = 6.650 USD; 6.650 + 1.200 = 7.850 USD; ROI = (7.850 − 7.850) / 7.850 = 0 %.
+
+**Comparación con el piloto** (`datos-piloto.csv`, horas auto-reportadas, 6 devs, 4 semanas por mes):
+
+| | Horas por dev al mes | Cálculo |
+|---|---|---|
+| Piloto conservador (semanas 7-12) | 5,67 | 8,5 h/sem / 6 devs × 4 |
+| Piloto optimista (semanas 9-12) | 7,33 | 11 h/sem / 6 devs × 4 |
+| **Punto de equilibrio con 25 devs** | **2,22** | 39 % del conservador y 30 % del optimista |
+| Punto de equilibrio si solo se benefician los 6 devs | 9,24 | 332,5 h / 6 devs / 6 meses: 63 % más que el conservador y 26 % más que el optimista |
+
+**¿Es realista?** Con los 25 devs, la meta de 2,22 h por dev al mes es menos de la mitad de lo que reportó el piloto, así que es alcanzable **si los otros 19 devs repiten, al menos, el 39 % del ahorro del piloto**. Eso no está probado: la muestra es de 6 devs, las horas son auto-reportadas y los otros equipos están en niveles de madurez más bajos (Facturación en nivel 1, Bodega y Reportes en nivel 2, según `docs/adopcion/plan-evolucion.md`). Si solo se beneficiaran los 6 del piloto, la meta (9,24 h) supera lo medido, y por eso el ROI del modelo es negativo.
+
+**Una línea para la gerencia:** cada desarrollador debe ahorrar 2,2 horas al mes (unos 33 minutos por semana) para que la inversión se pague; el piloto reportó entre 5,7 y 7,3.
 
 ## 7. Limitaciones
 
