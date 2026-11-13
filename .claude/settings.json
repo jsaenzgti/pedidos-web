@@ -1,7 +1,16 @@
 {
   "permissions": {
     "deny": [
-      "Edit(legado/**)"
+      "Edit(legado/**)",
+      "Read(./.env)",
+      "Read(**/*.pem)"
+    ],
+    "ask": [
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "PowerShell(Invoke-WebRequest *)",
+      "WebFetch",
+      "Edit(migracion/golden-master.csv)"
     ]
   },
   "hooks": {
@@ -12,6 +21,17 @@
           {
             "type": "command",
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && dotnet test --nologo 1>&2 || exit 2"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Read|Edit|Write|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && bash .claude/hooks/guardian.sh"
           }
         ]
       }
