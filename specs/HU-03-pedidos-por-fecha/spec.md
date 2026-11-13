@@ -21,6 +21,8 @@ en `src/PedidosWeb.Core/Pedidos/`.
 - **CA-03** · Dado un pedido fuera del rango, cuando filtro, entonces no aparece.
 - **CA-04** · Dado `desde` mayor que `hasta`, cuando filtro, entonces se lanza `ArgumentException`
   con un mensaje que explique el problema.
+- **CA-05** · Dado `pedidos` nulo, cuando filtro, entonces se lanza `ArgumentNullException`
+  con el nombre del parámetro `pedidos`.
 
 ## Fuera de alcance
 
