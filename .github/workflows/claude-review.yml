@@ -27,7 +27,7 @@ jobs:
           path: reglas
 
       - name: Revisar el PR
-        uses: anthropics/claude-code-action@v1.0.271
+        uses: anthropics/claude-code-action@v1.0.279
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
